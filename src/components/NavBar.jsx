@@ -1,11 +1,14 @@
-// This navbar component is a responsive navigation bar that includes links to Home, About 
+// Active Link: Use usePathname to highlight the current active link.
+// This improves UX by showing which page the user is on.
 
 "use client";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
+    const pathname = usePathname();
 
     // State to manage the current theme (light or dark)
     const [theme, setTheme] = useState(() => {
@@ -45,43 +48,43 @@ const NavBar = () => {
                         tabIndex="-1"
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-base-content">
 
-                        <li><Link href="/">Home</Link></li>
+                        <li><Link href="/" className={pathname === '/' ? 'active' : ''}>Home</Link></li>
                         <li>
                             <a>About</a>
                             <ul className="p-2 text-base-content">
-                                <li><Link href="/about">About Us</Link></li>
-                                <li><Link href="/about/designers">Designers</Link></li>
-                                <li><Link href="/about/developers">Developers</Link></li>
+                                <li><Link href="/about" className={pathname === '/about' ? 'active' : ''}>About Us</Link></li>
+                                <li><Link href="/about/designers" className={pathname === '/about/designers' ? 'active' : ''}>Designers</Link></li>
+                                <li><Link href="/about/developers" className={pathname === '/about/developers' ? 'active' : ''}>Developers</Link></li>
                               
                             </ul>
                         </li>
 
-                        <li><Link href="/contact">Contact</Link></li>
-                        <li><Link href="/blogs">Blogs</Link></li>
+                        <li><Link href="/contact" className={pathname === '/contact' ? 'active' : ''}>Contact</Link></li>
+                        <li><Link href="/blogs" className={pathname.startsWith('/blogs') ? 'active' : ''}>Blogs</Link></li>
                     </ul>
 
 
                 </div>
-                <Link href="/" className="btn btn-ghost text-xl text-base-content">Backend & Database</Link>
+                <Link href="/" className="btn btn-ghost text-xl text-base-content">Next.js Fundamentals</Link>
             </div>
 
 
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 text-base-content">
-                    <li><Link href="/">Home</Link></li>
+                    <li><Link href="/" className={pathname === '/' ? 'active' : ''}>Home</Link></li>
                     <li>
                         <details>
                             <summary>About</summary>
                             <ul className="p-2 bg-base-100 w-40 z-1 text-base-content">
-                                <li><Link href="/about">About Us</Link></li>
-                                <li><Link href="/about/designers">Designers</Link></li>
-                                <li><Link href="/about/developers">Developers</Link></li>
+                                <li><Link href="/about" className={pathname === '/about' ? 'active' : ''}>About Us</Link></li>
+                                <li><Link href="/about/designers" className={pathname === '/about/designers' ? 'active' : ''}>Designers</Link></li>
+                                <li><Link href="/about/developers" className={pathname === '/about/developers' ? 'active' : ''}>Developers</Link></li>
                             </ul>
                         </details>
                     </li>
 
-                    <li><Link href="/contact">Contact</Link></li>
-                    <li><Link href="/blogs">Blogs</Link></li>
+                    <li><Link href="/contact" className={pathname === '/contact' ? 'active' : ''}>Contact</Link></li>
+                    <li><Link href="/blogs" className={pathname.startsWith('/blogs') ? 'active' : ''}>Blogs</Link></li>
                 </ul>
             </div>
 
@@ -93,7 +96,7 @@ const NavBar = () => {
                     aria-label="Toggle theme"
                 >
                     {theme === 'light' ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fi ll="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                         </svg>
                     ) : (
